@@ -1,0 +1,33 @@
+
+Job title: Bioinformatician
+
+Role Summary:
+We are seeking a skilled and motivated Bioinformatician to join our research team. This hybrid role combines expertise in biology, computer science, and statistics to analyze and interpret large-scale biological datasets. You will be responsible for developing and applying computational tools and pipelines for genomic, transcriptomic, proteomic, or other 'omics' data analysis, contributing to cutting-edge research projects and discoveries.
+Key Responsibilities:
+Analyze and interpret complex biological data, including Next-Generation Sequencing (NGS) data (e.g., RNA-Seq, DNA-Seq, ChIP-Seq), microarray data, and proteomics data.
+Develop, implement, and maintain bioinformatics pipelines and workflows for data processing, quality control, and analysis.
+Utilize and adapt existing bioinformatics tools and databases, and develop custom scripts and software as needed.
+Apply statistical methods for data analysis, including differential gene expression, variant calling, pathway analysis, and network analysis.
+Collaborate closely with wet-lab biologists and researchers to understand experimental design, interpret results, and formulate new hypotheses.
+Manage and curate large biological datasets, ensuring data integrity and accessibility.
+Prepare clear and concise reports, visualizations, and presentations of analytical results for internal meetings, publications, and grant proposals.
+Stay current with the latest advancements in bioinformatics, computational biology, and relevant biological fields.
+Contribute to the writing of scientific manuscripts and grant applications.
+Provide bioinformatics support and training to other researchers.
+Required Qualifications:
+Master's or PhD degree in Bioinformatics, Computational Biology, Genomics, Computer Science, Statistics, or a related field with a strong bioinformatics component.
+2-3+ years of post-Master's or relevant PhD experience in bioinformatics analysis.
+Proficiency in programming languages commonly used in bioinformatics (e.g., Python, R, Perl).
+Strong experience with Linux/Unix operating systems and shell scripting.
+Demonstrated experience in analyzing large-scale biological datasets (e.g., NGS data).
+Familiarity with common bioinformatics tools, databases (e.g., NCBI, Ensembl, UCSC Genome Browser), and algorithms.
+Solid understanding of molecular biology, genetics, and genomics principles.
+Strong statistical analysis skills.
+Excellent problem-solving, analytical, and critical thinking abilities.
+Good communication and collaboration skills, with the ability to work effectively in an interdisciplinary team.
+Preferred Qualifications:
+Experience with cloud computing environments (e.g., AWS, Azure, GCP) for bioinformatics analysis.
+Experience with machine learning techniques applied to biological data.
+Knowledge of specific 'omics' data analysis (e.g., single-cell RNA-seq, metagenomics).
+Track record of scientific publications in peer-reviewed journals.
+Experience with workflow management systems (e.g., Nextflow, Snakemake).

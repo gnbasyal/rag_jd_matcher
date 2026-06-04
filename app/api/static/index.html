@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV–JD Matcher</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      padding: 2rem;
+    }
+
+    h1 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+
+    /* ── Upload area ─────────────────────────────── */
+    #drop-zone {
+      border: 2px dashed #aaa;
+      border-radius: 10px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      background: #fff;
+      transition: border-color 0.2s, background 0.2s;
+      max-width: 560px;
+    }
+    #drop-zone.drag-over { border-color: #4f46e5; background: #eef2ff; }
+    #drop-zone p { color: #666; margin-top: 0.5rem; font-size: 0.875rem; }
+    #file-input { display: none; }
+
+    button {
+      margin-top: 1.25rem;
+      padding: 0.6rem 1.5rem;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:disabled { background: #a5b4fc; cursor: not-allowed; }
+
+    #status { margin-top: 1rem; font-size: 0.875rem; color: #555; min-height: 1.2em; }
+    #error  { margin-top: 0.5rem; color: #dc2626; font-size: 0.875rem; }
+
+    /* ── Two-column results layout ───────────────── */
+    #results {
+      display: none;
+      margin-top: 2rem;
+      gap: 1.5rem;
+      align-items: flex-start;
+      display: none;
+    }
+    #results.visible {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 900px) {
+      #results.visible { grid-template-columns: 1fr; }
+    }
+
+    /* ── Generic card ────────────────────────────── */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .card h2 {
+      font-size: 0.8rem;
+      color: #4f46e5;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    .row { display: flex; gap: 0.5rem; margin-bottom: 1rem; align-items: flex-start; }
+    .label { font-weight: 600; min-width: 150px; color: #555; font-size: 0.875rem; padding-top: 0.2rem; flex-shrink: 0; }
+    .value { font-size: 0.875rem; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      background: #eef2ff;
+      color: #4f46e5;
+      border-radius: 999px;
+      padding: 0.25rem 0.8rem;
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+    .tag.tech   { background: #ecfdf5; color: #059669; }
+    .tag.domain { background: #fef3c7; color: #b45309; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid #e5e7eb; color: #555; font-weight: 600; }
+    td { padding: 0.4rem 0.5rem; border-bottom: 1px solid #f3f4f6; vertical-align: top; }
+
+    /* ── JD collapsible cards ────────────────────── */
+    .jd-card {
+      background: #fff;
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .jd-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .jd-header:hover { background: #f9f9f9; }
+
+    .jd-rank {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #4f46e5;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .jd-title-block { flex: 1; min-width: 0; }
+    .jd-title { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .jd-company { font-size: 0.8rem; color: #777; margin-top: 0.1rem; }
+
+    .jd-score {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #4f46e5;
+      flex-shrink: 0;
+    }
+
+    .jd-chevron {
+      flex-shrink: 0;
+      color: #aaa;
+      transition: transform 0.2s;
+      font-size: 0.9rem;
+    }
+    .jd-card.open .jd-chevron { transform: rotate(180deg); }
+
+    .jd-body {
+      display: none;
+      padding: 0 1.25rem 1.25rem;
+      border-top: 1px solid #f0f0f0;
+    }
+    .jd-card.open .jd-body { display: block; }
+
+    .jd-summary {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: #333;
+      margin: 1rem 0;
+    }
+
+    .jd-section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #888;
+      margin-bottom: 0.4rem;
+      margin-top: 0.9rem;
+    }
+
+    .signal-list { list-style: none; }
+    .signal-list li {
+      font-size: 0.85rem;
+      padding: 0.25rem 0;
+      padding-left: 1.4rem;
+      position: relative;
+      color: #1a1a1a;
+    }
+    .signal-list li::before { position: absolute; left: 0; }
+    .signal-list.match li::before { content: '✓'; color: #059669; }
+    .signal-list.gap   li::before { content: '⚠'; color: #d97706; font-size: 0.8rem; }
+    .signal-list.gap.none li { color: #aaa; font-style: italic; }
+    .signal-list.gap.none li::before { content: ''; }
+
+    .seniority-badge {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 0.9rem;
+    }
+    .seniority-badge.match { background: #dcfce7; color: #15803d; }
+    .seniority-badge.under { background: #fef9c3; color: #a16207; }
+    .seniority-badge.over  { background: #dbeafe; color: #1d4ed8; }
+
+    #col-left h3, #col-right h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #1a1a1a;
+    }
+
+    /* ── API key bar ─────────────────────────────── */
+    #api-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      max-width: 560px;
+      margin-bottom: 1.5rem;
+    }
+    #api-bar label { font-size: 0.8rem; font-weight: 600; color: #555; white-space: nowrap; }
+    #provider-select {
+      padding: 0.4rem 0.6rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      background: #f9fafb;
+      cursor: pointer;
+    }
+    #api-key-input {
+      flex: 1;
+      padding: 0.4rem 0.7rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-family: monospace;
+      background: #f9fafb;
+    }
+    #api-key-input:focus, #provider-select:focus { outline: 2px solid #4f46e5; border-color: transparent; }
+  </style>
+</head>
+<body>
+
+<h1>CV–JD Matcher</h1>
+
+<div id="api-bar">
+  <label for="provider-select">Provider</label>
+  <select id="provider-select">
+    <option value="openai">OpenAI</option>
+    <option value="anthropic">Anthropic</option>
+  </select>
+  <label for="api-key-input">API Key</label>
+  <input type="password" id="api-key-input" placeholder="sk-…" autocomplete="off" />
+</div>
+
+<div id="drop-zone">
+  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="1.5">
+    <path d="M12 16V4m0 0L8 8m4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+  </svg>
+  <p>Drag &amp; drop your CV here, or click to browse</p>
+  <p>PDF · DOCX · TXT</p>
+  <input type="file" id="file-input" accept=".pdf,.docx,.txt" />
+</div>
+
+<button id="upload-btn" disabled>Match CV to Jobs</button>
+<div id="status"></div>
+<div id="error"></div>
+
+<div id="results">
+  <!-- Left: CV profile -->
+  <div id="col-left">
+    <h3>Candidate Profile</h3>
+    <div class="card" id="card-overview"></div>
+    <div class="card" id="card-skills"></div>
+    <div class="card" id="card-roles"></div>
+    <div class="card" id="card-education"></div>
+  </div>
+
+  <!-- Right: Matched JDs -->
+  <div id="col-right">
+    <h3>Matched Jobs</h3>
+    <div id="jd-cards"></div>
+  </div>
+</div>
+
+<script>
+  const dropZone      = document.getElementById('drop-zone');
+  const fileInput     = document.getElementById('file-input');
+  const uploadBtn     = document.getElementById('upload-btn');
+  const statusEl      = document.getElementById('status');
+  const errorEl       = document.getElementById('error');
+  const resultsEl     = document.getElementById('results');
+  const providerSelect = document.getElementById('provider-select');
+  const apiKeyInput   = document.getElementById('api-key-input');
+
+  let selectedFile = null;
+
+  const PLACEHOLDERS = { openai: 'sk-…', anthropic: 'sk-ant-…' };
+  providerSelect.addEventListener('change', () => {
+    apiKeyInput.placeholder = PLACEHOLDERS[providerSelect.value] || 'API key…';
+    updateButton();
+  });
+  apiKeyInput.addEventListener('input', updateButton);
+
+  function updateButton() {
+    uploadBtn.disabled = !(selectedFile && apiKeyInput.value.trim());
+  }
+
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    setFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', () => setFile(fileInput.files[0]));
+
+  function setFile(file) {
+    if (!file) return;
+    selectedFile = file;
+    dropZone.querySelector('p').textContent = `Selected: ${file.name}`;
+    updateButton();
+    errorEl.textContent = '';
+    resultsEl.classList.remove('visible');
+  }
+
+  uploadBtn.addEventListener('click', async () => {
+    if (!selectedFile) return;
+    const key = apiKeyInput.value.trim();
+    if (!key) { errorEl.textContent = 'Please enter an API key.'; return; }
+
+    uploadBtn.disabled = true;
+    statusEl.textContent = 'Parsing CV and matching jobs — this may take 20–30 seconds…';
+    errorEl.textContent = '';
+    resultsEl.classList.remove('visible');
+
+    const form = new FormData();
+    form.append('cv_file', selectedFile);
+    form.append('api_key', key);
+    form.append('llm_provider', providerSelect.value);
+
+    try {
+      const res  = await fetch('/match', { method: 'POST', body: form });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || res.statusText);
+      renderProfile(data.profile);
+      renderJDs(data.reranked);
+      resultsEl.classList.add('visible');
+      statusEl.textContent = 'Done.';
+    } catch (err) {
+      errorEl.textContent = `Error: ${err.message}`;
+      statusEl.textContent = '';
+    } finally {
+      updateButton();
+    }
+  });
+
+  /* ── Helpers ─────────────────────────────────────────────────────── */
+
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function tag(text, cls = '') {
+    return `<span class="tag ${cls}">${esc(text)}</span>`;
+  }
+
+  function row(label, value) {
+    return `<div class="row"><span class="label">${label}</span><span class="value">${value}</span></div>`;
+  }
+
+  /* ── CV profile ──────────────────────────────────────────────────── */
+
+  function renderProfile(p) {
+    document.getElementById('card-overview').innerHTML = `
+      <h2>Overview</h2>
+      ${row('Name', esc(p.name))}
+      ${row('Seniority', esc(p.seniority))}
+      ${row('Experience', p.total_years_experience + ' years')}
+      ${row('Domains', p.domains.map(d => tag(d, 'domain')).join(' ') || '—')}
+    `;
+
+    document.getElementById('card-skills').innerHTML = `
+      <h2>Skills &amp; Tech Stack</h2>
+      ${row('Skills', p.skills.map(s => tag(s)).join(' ') || '—')}
+      ${row('Tech stack', p.tech_stack.map(t => tag(t, 'tech')).join(' ') || '—')}
+    `;
+
+    const roleRows = p.roles.map(r => `
+      <tr>
+        <td>${esc(r.title)}</td><td>${esc(r.company)}</td>
+        <td>${r.years} yr</td><td>${esc(r.description)}</td>
+      </tr>`).join('');
+    document.getElementById('card-roles').innerHTML = `
+      <h2>Work History</h2>
+      <table>
+        <tr><th>Title</th><th>Company</th><th>Duration</th><th>Description</th></tr>
+        ${roleRows || '<tr><td colspan="4">—</td></tr>'}
+      </table>
+    `;
+
+    const eduRows = p.education.map(e => `
+      <tr>
+        <td>${esc(e.degree)}</td><td>${esc(e.institution)}</td><td>${e.year ?? '—'}</td>
+      </tr>`).join('');
+    document.getElementById('card-education').innerHTML = `
+      <h2>Education</h2>
+      <table>
+        <tr><th>Degree</th><th>Institution</th><th>Year</th></tr>
+        ${eduRows || '<tr><td colspan="3">—</td></tr>'}
+      </table>
+    `;
+  }
+
+  /* ── JD cards ────────────────────────────────────────────────────── */
+
+  const SENIORITY_LABEL = { match: 'Seniority match', under: 'Candidate under-qualified', over: 'Candidate over-qualified' };
+
+  function renderJDs(reranked) {
+    const container = document.getElementById('jd-cards');
+    container.innerHTML = reranked.map(r => {
+      const ex  = r.explanation;
+      const pct = ((r.rerank_score ?? 0) * 100).toFixed(1) + '%';
+
+      const signals = ex.matching_signals.length
+        ? ex.matching_signals.map(s => `<li>${esc(s)}</li>`).join('')
+        : '<li>None identified</li>';
+
+      const gaps = ex.potential_gaps.length
+        ? ex.potential_gaps.map(g => `<li>${esc(g)}</li>`).join('')
+        : '<li>No significant gaps identified</li>';
+
+      const gapClass   = ex.potential_gaps.length ? '' : 'none';
+      const senLabel   = SENIORITY_LABEL[ex.seniority_fit] ?? ex.seniority_fit;
+
+      return `
+        <div class="jd-card" data-id="${r.jd_id}">
+          <div class="jd-header" onclick="toggleCard(this)">
+            <div class="jd-rank">${r.rank}</div>
+            <div class="jd-title-block">
+              <div class="jd-title">${esc(r.title)}</div>
+              <div class="jd-company">${esc(r.company)}</div>
+            </div>
+            <div class="jd-score">${pct}</div>
+            <div class="jd-chevron">▼</div>
+          </div>
+          <div class="jd-body">
+            <p class="jd-summary">${esc(ex.summary)}</p>
+
+            <div class="jd-section-label">Matching signals</div>
+            <ul class="signal-list match">${signals}</ul>
+
+            <div class="jd-section-label">Potential gaps</div>
+            <ul class="signal-list gap ${gapClass}">${gaps}</ul>
+
+            <div class="jd-section-label">Seniority fit</div>
+            <span class="seniority-badge ${ex.seniority_fit}">${esc(senLabel)}</span>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function toggleCard(header) {
+    header.closest('.jd-card').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

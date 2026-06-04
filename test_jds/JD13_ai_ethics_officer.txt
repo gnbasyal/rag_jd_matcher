@@ -1,0 +1,31 @@
+Job title: AI Ethics Officer
+Role Summary:
+We are seeking a thoughtful and experienced AI Ethics Officer to lead the development and implementation of our AI ethics framework and governance practices. This pivotal hybrid role requires a deep understanding of AI technologies, ethical theories, relevant legal and regulatory landscapes, and policy development. You will work across technical and non-technical teams to embed ethical considerations into the entire AI lifecycle, from research and development to deployment and monitoring, ensuring our AI systems are fair, transparent, accountable, and beneficial.
+Key Responsibilities:
+Develop, implement, and maintain the company's AI ethics framework, principles, policies, and guidelines.
+Conduct ethical risk assessments and impact analyses for AI projects and systems.
+Provide expert guidance and consultation to product, engineering, research, and legal teams on AI ethics issues, including bias, fairness, transparency, accountability, privacy, and security.
+Design and deliver AI ethics training and awareness programs for employees.
+Establish and oversee processes for monitoring AI systems for ethical compliance and unintended consequences.
+Collaborate with external stakeholders, including policymakers, academics, and civil society organizations, on AI ethics matters.
+Stay abreast of emerging AI ethics research, best practices, regulatory developments, and societal concerns globally and within India.
+Develop and manage mechanisms for reporting and addressing AI ethics-related concerns and incidents.
+Advise senior leadership on AI ethics strategy and risk management.
+Contribute to public discourse and thought leadership on responsible AI.
+Ensure AI systems comply with relevant data privacy regulations (e.g., Digital Personal Data Protection Act in India, GDPR).
+Required Qualifications:
+Advanced degree (Master's or PhD) in a relevant field such as Ethics, Law, Public Policy, Computer Science (with a focus on AI/ML ethics), Philosophy, or Social Sciences.
+5+ years of professional experience in a role focused on ethics, responsible technology, AI governance, or technology policy, with a significant portion dedicated to AI ethics.
+Deep understanding of artificial intelligence, machine learning concepts, and their societal implications.
+Strong knowledge of ethical theories, principles, and frameworks applicable to AI.
+Familiarity with relevant legal and regulatory landscapes pertaining to AI, data privacy, and technology.
+Proven ability to develop and implement policies and governance frameworks.
+Excellent analytical, critical thinking, and problem-solving skills.
+Exceptional communication, interpersonal, and facilitation skills, with the ability to engage effectively with diverse stakeholders.
+High degree of integrity and ethical judgment.
+Preferred Qualifications:
+Experience working directly with AI/ML development teams.
+Published work or public speaking experience on AI ethics.
+Experience in conducting ethical audits or impact assessments for AI systems.
+Familiarity with international AI ethics guidelines and standards.
+Legal background or qualification with a focus on technology law.

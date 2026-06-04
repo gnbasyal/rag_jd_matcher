@@ -1,0 +1,45 @@
+Job title: Data science-HR manager
+
+Role Summary:
+
+The Data Science-Driven HR Manager will play a unique and critical role in shaping our people strategies. This position combines comprehensive human resources responsibilities with advanced data analytics capabilities. You will leverage statistical analysis, predictive modeling, and machine learning algorithms to drive evidence-based decisions in areas such as talent acquisition, employee engagement, performance management, and retention, while also managing core HR functions like employee relations, talent development, and compliance.
+
+Key Responsibilities:
+
+HR Strategy & Traditional HR Functions:
+Develop and implement HR strategies and initiatives aligned with the overall business strategy.
+Manage employee relations, including conflict resolution, disciplinary actions, and grievance procedures.
+Oversee talent development programs, including training, leadership development, and succession planning.
+Ensure compliance with federal, state, and local employment laws and regulations.
+Manage compensation and benefits administration and strategy.
+Support recruitment and onboarding processes.
+Data Analytics & Insights:
+Collect, clean, and analyze HR data from various sources (HRIS, surveys, performance reviews, etc.) to identify trends, patterns, and insights.
+Develop and implement predictive models and algorithms to forecast workforce needs, identify attrition risks, predict candidate success, and optimize HR processes.
+Design and maintain HR dashboards and reports to provide actionable insights to HR leadership and business stakeholders.
+Utilize statistical techniques to measure the effectiveness of HR programs and initiatives.
+Partner with business leaders to understand their challenges and apply data-driven solutions to address people-related issues.
+Champion data literacy and the use of analytics within the HR department and across the organization.
+Ensure data integrity, accuracy, and privacy in all HR analytics activities.
+Collaboration & Communication:
+Translate complex data findings into clear, concise, and actionable recommendations for both technical and non-technical audiences.
+Collaborate with IT and data science teams to leverage advanced analytical tools and infrastructure.
+Present findings and recommendations to senior management to inform strategic decision-making.
+Required Qualifications:
+
+Bachelor's degree in Human Resources, Data Science, Statistics, Business Analytics, or a related field.
+5-7+ years of experience in Human Resources, with a significant component of data analysis or HR analytics.
+Strong understanding of core HR principles, practices, and employment law.
+Proficiency in statistical analysis software (e.g., R, Python, SPSS) and data visualization tools (e.g., Tableau, Power BI).
+Experience with HRIS systems (e.g., Workday, SAP SuccessFactors) and data extraction.
+Proven ability to develop and implement predictive models and algorithms.
+Excellent analytical, problem-solving, and critical-thinking skills.
+Strong communication, presentation, and interpersonal skills.
+Ability to handle sensitive and confidential information with discretion.
+Preferred Qualifications:
+
+Master's degree in Data Science, HR Management, I/O Psychology, or a related quantitative field.
+SHRM-CP/SHRM-SCP or HRCI (PHR/SPHR) certification.
+Experience with machine learning techniques and AI applications in HR.
+Proven track record of driving HR improvements through data-driven insights.
+Experience in change management related to implementing data-driven HR practices.

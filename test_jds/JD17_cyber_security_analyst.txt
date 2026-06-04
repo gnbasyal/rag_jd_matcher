@@ -1,0 +1,32 @@
+Job Title: Cyber Security Analyst
+
+Mission
+
+The Cyber Security Operations Center Analyst (or Engineer) is responsible for conducting all Cyber Security Incident investigations at different levels of the organization, and therefore facilitate the identification, analysis, and containment of cyber security incidents, making first responder security decisions related to the information technology (IT) and business impact within their assigned scope.
+
+Responsibilities
+
+ Conducts network monitoring and intrusion detection analysis using various computer network defense tools, such as intrusion detection/prevention systems (IDS/IPS), firewalls, host-based security systems (HBSS), etc.
+ Correlates network activity across networks to identify trends of unauthorized use
+ Research emerging threats and vulnerabilities to aid in the identification of incidents
+ Analyze the results of the monitoring solutions, assess, and correlate the output using automated systems. Conduct triage, event correlation, classification, and analysis of these events such that incidents are investigated and logged or followed up using the existing information risk incident management processes
+ Provide pro-active feedback which will enable improvement of the current monitoring rules, based on information and knowledge/experience from Schlumberger and Industry best practices.
+ Capable of working unsupervised, but able to interact and give direction to business and IT (Information Technology) teams in line within established corporate security policies and processes.
+ Develops and maintains constructive and cooperative working relationships with team members
+ Demonstrates the ability to drive creative, innovative ways to solve problems or minimize risk
+ Consultative skills and ability to work cross-functionally
+ Focused and results oriented
+ Ability to react quickly, decisively, and deliberately in high-stress, high-impact situations
+ Strong decision-making capabilities, with a proven ability to weigh the relative costs and benefits of potential actions and identify the most appropriate one
+
+
+Minimum Requirements
+
+ Bachelor degree in a technical field such as computer science, Cyber Security, Management Information Technology, Engineering, Mathematics or related
+ Incident Response experience - Security Risk (troubleshooting, root cause analysis, Cyber outbreak management and distinction of malicious activity from directed attack patterns)
+ Security Event Monitoring and Analysis experience (Log analysis/ Windows event analysis, Security Information and Event Management (SIEM) – Chronicle and Splunk are preferred)
+ Experience with Forensics analysis (Malware and memory, Network and Host forensics)
+ Desirable Certifications: SANS (SysAdmin, Audit, Network, and Security), GIAC (Global Information Assurance Certification) certification in Cyber Defense, Penetration Testing, Incident Response or Forensics; Blue team level 1, Blue team level 2; Certified CyberDefender (CCD)
+ Advanced English and Portuguese
+ Availability to work in alterative shifts
+ Valid documentation to work in Brazilns related to the sale and service of alcoholic beverages.

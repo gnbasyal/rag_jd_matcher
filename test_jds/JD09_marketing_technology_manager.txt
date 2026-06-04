@@ -1,0 +1,36 @@
+Job Title: Marketing Technology Manager
+
+Role Summary:
+
+We are seeking a highly skilled and motivated Marketing Technology Manager to bridge our marketing strategy and technology implementation. This pivotal role involves managing our diverse digital platforms, optimizing our marketing technology stack, and developing effective, data-driven marketing campaigns. The ideal candidate will act as a crucial liaison between our technical teams and marketing departments, ensuring the seamless integration and alignment of technology with our overall marketing initiatives. You will be responsible for the governance, strategy, and execution of our marketing technology roadmap.
+
+Key Responsibilities:
+
+Oversee the selection, implementation, administration, and optimization of marketing technology platforms, including CRM (e.g., Salesforce, HubSpot), marketing automation (e.g., Marketo, Pardot), analytics tools (e.g., Google Analytics, Adobe Analytics), CMS, and data management platforms.
+Develop and execute a comprehensive marketing technology strategy and roadmap that aligns with business goals and marketing objectives.
+Lead the technical aspects of marketing campaign execution, including audience segmentation, journey building, A/B testing, and performance tracking.
+Serve as the primary point of contact and subject matter expert for all marketing technology systems, providing training and support to marketing team members.
+Collaborate with IT, sales, and product teams to ensure seamless data flow and integration between marketing systems and other enterprise platforms.
+Analyze marketing data and campaign performance to provide actionable insights and recommendations for continuous improvement and ROI optimization.
+Stay abreast of the latest marketing technology trends, best practices, and emerging tools to identify new opportunities for innovation and efficiency.
+Manage vendor relationships, contracts, and budgets related to marketing technology.
+Ensure all marketing technology practices comply with data privacy regulations (e.g., GDPR, CCPA).
+Troubleshoot and resolve technical issues related to marketing platforms and campaigns.
+Required Qualifications:
+
+Bachelor's degree in Marketing, Information Technology, Business Administration, or a related field.
+5+ years of experience in a marketing technology role or similar (e.g., Marketing Operations, Digital Marketing Manager with a strong tech focus).
+Proven experience managing and administering a variety of marketing technology platforms (CRM, marketing automation, analytics, etc.).
+Strong understanding of marketing principles, digital marketing channels, and campaign management.
+Excellent analytical skills with the ability to interpret complex data and translate it into actionable insights.
+Proficiency in data management, segmentation, and reporting.
+Strong project management skills with the ability to manage multiple projects simultaneously and meet deadlines.
+Excellent communication, collaboration, and interpersonal skills, with the ability to explain technical concepts to non-technical stakeholders.
+Preferred Qualifications:
+
+Master's degree in a relevant field.
+Certifications in specific marketing technology platforms (e.g., Salesforce Certified Administrator, Marketo Certified Expert).
+Experience with data visualization tools (e.g., Tableau, Power BI).
+Knowledge of HTML, CSS, JavaScript, and SQL.
+Experience in an Agile marketing environment.
+Demonstrated ability to drive innovation and optimize marketing processes through technology.

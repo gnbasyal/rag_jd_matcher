@@ -1,0 +1,46 @@
+Job Title: Product owner Scrum Master
+
+This unique hybrid role combines the key responsibilities of a Product Owner and a Scrum Master. As the Product Owner-Scrum Master, you will be responsible for defining the product vision, managing the product backlog, and prioritizing features to maximize business value. Simultaneously, you will facilitate Agile ceremonies, remove impediments, and coach the development team on Scrum principles to ensure smooth and efficient product development cycles. This role is ideal for a candidate who thrives in a multifaceted position within smaller or resource-constrained teams, enabling streamlined communication and decision-making.
+
+Key Responsibilities:
+
+Product Owner Responsibilities:
+Develop and articulate a clear product vision and strategy, aligned with company goals and customer needs.
+Own, manage, and prioritize the product backlog based on business value, market trends, and stakeholder feedback.
+Create clear and concise user stories with well-defined acceptance criteria.
+Collaborate closely with stakeholders (customers, sales, marketing, leadership) to gather requirements and ensure alignment.
+Define sprint goals and work with the development team to ensure understanding of backlog items.
+Accept or reject completed work based on acceptance criteria and definition of done.
+Continuously monitor product performance and iterate on features to enhance user satisfaction and achieve business objectives.
+Stay informed about the competitive landscape and industry trends.
+Scrum Master Responsibilities:
+Facilitate all Scrum ceremonies, including Sprint Planning, Daily Scrums, Sprint Reviews, and Sprint Retrospectives, ensuring they are productive and adhere to timeboxes.
+Coach and guide the development team on Agile and Scrum principles, practices, and values.
+Identify, track, and remove impediments to the team's progress.
+Foster a collaborative, transparent, and high-performing team environment.
+Protect the team from external distractions and interferences.
+Promote continuous improvement within the team and its processes.
+Assist the team in self-organization and cross-functionality.
+Track and communicate team velocity and sprint/release progress.
+Hybrid Role Synergies:
+Ensure a tight feedback loop between product strategy and development execution.
+Streamline communication and decision-making processes within the team.
+Adapt Agile practices to best suit the team's needs and resource availability.
+Required Qualifications:
+
+Bachelor's degree in Computer Science, Business Administration, or a related field.
+3-5+ years of experience in an Agile environment, with demonstrable experience in both Product Owner and Scrum Master capacities (can be concurrent or separate experiences totaling this duration).
+Strong understanding of Agile methodologies (Scrum, Kanban).
+Proven ability to define product vision, manage backlogs, and write effective user stories.
+Excellent facilitation, coaching, and conflict-resolution skills.
+Strong analytical and problem-solving abilities.
+Excellent communication, interpersonal, and stakeholder management skills.
+Familiarity with Agile project management tools (e.g., Jira, Trello, Asana).
+Preferred Qualifications:
+
+Certified Scrum Product Owner (CSPO) and Certified ScrumMaster (CSM) certifications.
+Advanced certifications like A-CSM, CSP-SM, PSM II, or PSPO II.
+Experience working in a startup or small to medium-sized enterprise (SME).
+Technical background or strong understanding of software development processes.
+Experience with user experience (UX) design principles.
+Demonstrated ability to manage ambiguity and adapt to changing priorities.

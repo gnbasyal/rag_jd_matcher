@@ -1,0 +1,31 @@
+# Core
+pydantic>=2.0
+pydantic-settings>=2.0
+
+# LangChain
+langchain>=0.3
+langchain-text-splitters>=0.3
+langchain-core>=0.3
+langchain-community>=0.3
+langchain-chroma>=0.2
+langchain-anthropic>=0.3
+langchain-openai>=0.3
+langchain-huggingface>=0.1
+
+# Vector store
+chromadb>=0.5
+
+# Embeddings / reranker
+sentence-transformers>=3.0
+
+# Sparse retrieval
+rank-bm25>=0.2.2
+
+# CV file parsing
+PyMuPDF>=1.24
+python-docx>=1.1
+
+# API
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9

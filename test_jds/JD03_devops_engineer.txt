@@ -1,0 +1,31 @@
+DevOps Engineer
+
+
+At [Company X], customer experience is at the forefront of everything we do. To help us build functional systems that improve the customer experience, we’re looking for a DevOps engineer who can be responsible for deploying product updates, identifying production issues, and implementing integrations that meet our customers’ needs. The ideal candidate will have a solid background in software engineering and be familiar with Ruby or Python, and will work with developers and engineers to ensure that software development follows established processes and works as intended. The DevOps engineer will also help plan projects and be involved in project management decisions.
+Objectives of this role
+Building and implementing new development tools and infrastructure
+Understanding the needs of stakeholders and conveying them to developers
+Working on ways to automate and improve development and release processes
+Testing and examining code written by others and analyzing results
+Ensuring that systems are safe and secure against cybersecurity threats
+Identifying technical problems and developing software updates and fixes
+Working with software developers and software engineers to ensure that development follows established processes and works as intended
+Planning projects and being involved in project management decisions
+Responsibilities
+Deploy updates and fixes, and provide Level 2 technical support
+Build tools to reduce occurrence of errors and improve customer experience
+Develop software to integrate with internal back-end systems
+Perform root cause analysis of production errors and resolve technical issues
+Develop scripts to automate visualization
+Design procedures for system troubleshooting and maintenance
+Required skills and qualifications
+Experience as a DevOps engineer or in a similar software engineering role
+Proficiency with Git and GitHub workflows
+Good knowledge of Ruby or Python
+Working knowledge of databases and SQL
+Problem-solving attitude
+Collaborative team spirit
+Preferred skills and qualifications
+Bachelor of science degree (or equivalent) in computer science, engineering, or relevant field
+Experience in civil engineering or customer experience
+Experience in developing/engineering applications for a large company

@@ -32,7 +32,7 @@
     #file-input { display: none; }
 
     button {
-      margin-top: 1.25rem;
+      margin-top: 0.6rem;
       padding: 0.6rem 1.5rem;
       background: #4f46e5;
       color: #fff;
@@ -237,6 +237,80 @@
       background: #f9fafb;
     }
     #api-key-input:focus, #provider-select:focus { outline: 2px solid #4f46e5; border-color: transparent; }
+
+    /* ── JD info line ────────────────────────────── */
+    #jd-info {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    #jd-info-btns {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.35rem;
+    }
+    .jd-action-btn {
+      padding: 0.2rem 0.65rem;
+      font-size: 0.75rem;
+      background: #fff;
+      color: #4f46e5;
+      border: 1px solid #c7d2fe;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .jd-action-btn:hover { background: #eef2ff; }
+
+    /* ── Modal ───────────────────────────────────── */
+    #jd-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    #jd-modal-overlay.open { display: flex; }
+    #jd-modal {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      width: 420px;
+      max-width: 90vw;
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+    #jd-modal h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+    #jd-modal-list {
+      overflow-y: auto;
+      flex: 1;
+      list-style: none;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+    }
+    #jd-modal-list li {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.82rem;
+      border-bottom: 1px solid #f3f4f6;
+      font-family: monospace;
+      color: #374151;
+    }
+    #jd-modal-list li:last-child { border-bottom: none; }
+    #jd-modal-close {
+      margin-top: 1rem;
+      align-self: flex-end;
+      padding: 0.35rem 1rem;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -262,9 +336,26 @@
   <input type="file" id="file-input" accept=".pdf,.docx,.txt" />
 </div>
 
+<div id="jd-info">
+  The jobs will be selected from a predefined list of JDs
+  <div id="jd-info-btns">
+    <button class="jd-action-btn" id="view-jds-btn">View list of jobs</button>
+    <button class="jd-action-btn" id="download-jds-btn">Download JDs</button>
+  </div>
+</div>
+
 <button id="upload-btn" disabled>Match CV to Jobs</button>
 <div id="status"></div>
 <div id="error"></div>
+
+<!-- JD list modal -->
+<div id="jd-modal-overlay">
+  <div id="jd-modal">
+    <h3>Available Job Descriptions</h3>
+    <ul id="jd-modal-list"></ul>
+    <button id="jd-modal-close">Close</button>
+  </div>
+</div>
 
 <div id="results">
   <!-- Left: CV profile -->
@@ -465,6 +556,37 @@
   function toggleCard(header) {
     header.closest('.jd-card').classList.toggle('open');
   }
+
+  /* ── JD list modal ───────────────────────────────────────────────── */
+
+  const modalOverlay = document.getElementById('jd-modal-overlay');
+  const modalList    = document.getElementById('jd-modal-list');
+
+  document.getElementById('view-jds-btn').addEventListener('click', async () => {
+    modalList.innerHTML = '<li>Loading…</li>';
+    modalOverlay.classList.add('open');
+    try {
+      const res  = await fetch('/jds');
+      const data = await res.json();
+      modalList.innerHTML = data.files.map(f => `<li>${esc(f)}</li>`).join('');
+    } catch {
+      modalList.innerHTML = '<li>Failed to load job list.</li>';
+    }
+  });
+
+  document.getElementById('jd-modal-close').addEventListener('click', () => {
+    modalOverlay.classList.remove('open');
+  });
+  modalOverlay.addEventListener('click', e => {
+    if (e.target === modalOverlay) modalOverlay.classList.remove('open');
+  });
+
+  document.getElementById('download-jds-btn').addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.href = '/jds/download';
+    a.download = 'job_descriptions.zip';
+    a.click();
+  });
 </script>
 </body>
 </html>

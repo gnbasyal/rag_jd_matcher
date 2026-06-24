@@ -1,9 +1,12 @@
+import io
+import zipfile
 from pathlib import Path
 
 from fastapi import FastAPI, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
+from app.config import settings
 from app.cv_parser import extract_text, parse_cv
 from app.llm import build_llm
 from app import explainer, query_builder, retriever, reranker
@@ -22,6 +25,28 @@ def index():
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/jds")
+def list_jds():
+    src = Path(settings.jd_source_dir)
+    files = sorted(p.name for p in src.glob("*.txt"))
+    return {"files": files}
+
+
+@app.get("/jds/download")
+def download_jds():
+    src = Path(settings.jd_source_dir)
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for path in sorted(src.glob("*.txt")):
+            zf.write(path, arcname=path.name)
+    buf.seek(0)
+    return StreamingResponse(
+        buf,
+        media_type="application/zip",
+        headers={"Content-Disposition": "attachment; filename=job_descriptions.zip"},
+    )
 
 
 # ── Error helpers ─────────────────────────────────────────────────────────────

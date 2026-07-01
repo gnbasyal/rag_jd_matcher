@@ -8,7 +8,9 @@ def build_llm(api_key: str, provider: str = "openai"):
         return ChatAnthropic(
             model=settings.anthropic_model,
             api_key=api_key,
-            temperature=0,
+            # temperature=0,
+            top_k=1,
+            top_p=0,
         )
     from langchain_openai import ChatOpenAI
     return ChatOpenAI(
@@ -16,4 +18,5 @@ def build_llm(api_key: str, provider: str = "openai"):
         api_key=api_key,
         temperature=0,
         seed=42,
+        top_p=0,
     )

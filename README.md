@@ -101,7 +101,7 @@ Drag and drop a CV onto the upload area, or click to browse. Accepted formats: *
 
 ### Step 3 — Click "Match CV to Jobs"
 
-Processing takes approximately 20–30 seconds. The status bar shows when the request is in progress.
+Processing takes approximately 10–15 seconds. The status bar shows when the request is in progress.
 
 ### Step 4 — Review the results
 
@@ -109,6 +109,11 @@ Two columns appear side by side:
 
 **Left — Candidate Profile**
 Your CV parsed into structured cards: name, seniority level, total years of experience, industry domains, skills, tech stack, work history, and education. Review this to verify the CV was parsed correctly before acting on the job matches.
+
+Between the upload area and the submit button there is a small info bar with two buttons:
+
+- **View list of jobs** — opens a popup listing all job description filenames in the configured JD directory
+- **Download JDs** — downloads the entire JD directory as a zip file
 
 **Right — Matched Jobs**
 Five job cards ranked by relevance. Each card shows the job title, company, and a match score (the five scores sum to 100%). Click any card to expand it:

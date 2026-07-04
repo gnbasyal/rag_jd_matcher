@@ -407,8 +407,10 @@ A thin factory function called once per request in the route handler. The API ke
 
 | Provider | LangChain class | Settings |
 |---|---|---|
-| `openai` | `ChatOpenAI` | `temperature=0`, `seed=42` (reproducible outputs) |
-| `anthropic` | `ChatAnthropic` | `temperature=0` |
+| `openai` | `ChatOpenAI` | `temperature=0`, `seed=42`, `top_p=1` |
+| `anthropic` | `ChatAnthropic` | `temperature=0`, `top_k=1`, `top_p=1` |
+
+`top_k=1` forces greedy decoding on Anthropic (only the single most probable token is considered at each step). `top_p=1` disables nucleus sampling truncation on both providers, letting `temperature` and `top_k` handle determinism. `seed=42` seeds the RNG on OpenAI's side for reproducible outputs.
 
 The model name (e.g. `gpt-4.1`) is read from `.env` via `settings.openai_model` / `settings.anthropic_model` — model names are configuration, not secrets.
 
@@ -426,6 +428,8 @@ The FastAPI application is defined in `routes.py` and served by uvicorn from `ma
 |---|---|---|
 | `GET` | `/` | Serves the web UI (`index.html`) |
 | `GET` | `/health` | Health check → `{"status": "ok"}` |
+| `GET` | `/jds` | Lists all `.txt` filenames in the configured JD source directory → `{"files": [...]}` |
+| `GET` | `/jds/download` | Zips the JD source directory and streams it as `job_descriptions.zip` |
 | `POST` | `/parse-cv` | Parses CV only, returns `CVProfile` as JSON |
 | `POST` | `/match` | Full pipeline — returns profile + top-5 matches with explanations |
 
@@ -482,8 +486,9 @@ A single-page application built with vanilla HTML, CSS, and JavaScript. No build
 
 ### Features
 
-- **API key bar** — Provider selector (OpenAI / Anthropic) and password-masked API key input at the top of the page. The submit button remains disabled until both a CV file and a non-empty API key are provided.
+- **API key bar** — Provider selector (OpenAI / Anthropic, defaulting to Anthropic) and password-masked API key input at the top of the page. The submit button remains disabled until both a CV file and a non-empty API key are provided.
 - **CV upload** — Drag-and-drop zone or click-to-browse for `.pdf`, `.docx`, and `.txt` files.
+- **JD info bar** — Sits between the upload zone and the submit button. Shows the text "The jobs will be selected from a predefined list of JDs" alongside two action buttons: **View list of jobs** (opens a modal listing all `.txt` filenames via `GET /jds`) and **Download JDs** (triggers a zip download via `GET /jds/download`).
 - **Two-column results layout:**
   - **Left — Candidate Profile:** Overview card (name, seniority, years, domains), skills & tech stack tags, work history table, education table.
   - **Right — Matched Jobs:** Five collapsible cards. The collapsed state shows the rank badge, job title, company, and rerank score as a percentage. Clicking a card expands it to reveal:
@@ -514,6 +519,6 @@ A single-page application built with vanilla HTML, CSS, and JavaScript. No build
 | RRF merge | < 100ms | Pure Python |
 | Cross-encoder reranking | 1–2s | 20 pairs, single batched forward pass |
 | LLM explanation (×5) | 3–5s | Parallel via `asyncio.gather` |
-| **Total** | **~10–15s** | LLM calls dominate |
+| **Total** | **~10–15s** | LLM calls dominate; actual time varies by provider and model |
 
 The explanation step would take ~15s if run serially. Running all 5 calls in parallel via `asyncio.gather` reduces this to the latency of the single slowest call (~3–5s).

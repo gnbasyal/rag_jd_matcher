@@ -86,11 +86,12 @@ These two pipelines share the vector store as the integration point. They are ot
 
 ### Step 1 — JD ingestion (offline)
 
-1. Raw JD files (PDF, HTML, plain text) are loaded from a source directory or API feed.
-2. Each JD is parsed to extract clean text using `Docling` or `unstructured`.
-3. The text is split into logical sections: job summary, responsibilities, required skills, nice-to-haves, company info.
-4. Each chunk is tagged with metadata: `jd_id`, `title`, `company`, `seniority`, `required_skills`, `tech_stack`, `chunk_type`, `date_added`.
+1. Raw JD files (plain `.txt`) are loaded from a source directory. *(v1 scope: TXT only. PDF/HTML support and Docling/unstructured integration deferred to v2.)*
+2. Text is normalised (excess whitespace collapsed); no semantic transformation is applied.
+3. The text is split into fixed-size chunks using `RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=64)`. *(v1 scope: section-aware splitting deferred to v2.)*
+4. Each chunk is tagged with LLM-extracted metadata: `jd_id`, `title`, `company`, `seniority`, `required_skills`, `tech_stack`, `chunk_type`, `date_added`.
 5. Chunks are embedded using a sentence transformer model and upserted into the vector store.
+6. Ingestion is triggered via CLI (`python -m app.jd_ingestion --api-key ... --provider ...`), not via an API endpoint.
 
 ### Step 2 — CV upload and parsing (online)
 
@@ -150,7 +151,7 @@ The orchestrator returns a list of 5 `MatchResult` objects, ordered by match qua
 - `chunk_jd(text: str, jd_id: str) -> list[JDChunk]` — splits into section-aware chunks with metadata
 - `embed_and_index(chunks: list[JDChunk]) -> None` — embeds and upserts to vector store
 
-**Chunking strategy:** Section-aware splitting using heading patterns (e.g. "Responsibilities", "Requirements", "About the role"). Fallback to `RecursiveCharacterTextSplitter` with `chunk_size=512, chunk_overlap=64` for unstructured JDs. Each chunk carries its parent `jd_id` so full JD text can be reconstructed at retrieval time.
+**Chunking strategy (v1):** `RecursiveCharacterTextSplitter` with `chunk_size=512, chunk_overlap=64`. Section-aware splitting (by heading patterns such as "Responsibilities", "Requirements") is deferred to v2. Each chunk carries its parent `jd_id` so full JD text can be reconstructed at retrieval time.
 
 **Metadata schema per chunk:**
 
@@ -172,8 +173,8 @@ The orchestrator returns a list of 5 `MatchResult` objects, ordered by match qua
 **Responsibility:** Extract text from a CV file and return a structured `CVProfile`.
 
 **Key functions:**
-- `extract_text(file_path: str) -> str` — extracts raw text from PDF, DOCX, or TXT
-- `parse_cv(raw_text: str) -> CVProfile` — calls LLM with structured output prompt
+- `extract_text(file_bytes: bytes, filename: str) -> str` — extracts raw text from PDF, DOCX, or TXT
+- `parse_cv(raw_text: str, llm) -> CVProfile` — calls LLM with structured output prompt; the LLM instance is caller-supplied (API key is not read from environment)
 
 **LLM prompt contract:** The prompt instructs the LLM to return a JSON object matching the `CVProfile` schema. Uses `with_structured_output()` in LangChain with a Pydantic model to enforce the schema. Includes a retry chain for malformed outputs.
 
@@ -261,16 +262,21 @@ async def match_cv_to_jds(cv_path: str, top_k: int = 5) -> list[MatchResult]:
 
 **Responsibility:** Thin FastAPI wrapper. Accepts CV upload, returns match results as JSON.
 
-**Endpoints:**
+**Endpoints (v1 as implemented):**
 
 | Method | Path | Description |
 |---|---|---|
-| `POST` | `/match` | Upload a CV file, returns ranked `MatchResult` list |
+| `GET` | `/` | Serves the web UI |
 | `GET` | `/health` | Health check |
-| `POST` | `/jd/ingest` | Trigger JD ingestion from configured source |
+| `GET` | `/jds` | Lists JD filenames from the configured source directory |
+| `GET` | `/jds/download` | Streams the JD directory as a zip file |
+| `POST` | `/parse-cv` | Parses CV only, returns `CVProfile` |
+| `POST` | `/match` | Full pipeline — returns profile + top-5 matches with explanations |
 
-**Request:** `multipart/form-data` with a `cv_file` field (PDF, DOCX, or TXT).  
-**Response:** `application/json` — a list of `MatchResult` objects (see data models).
+**Note:** The originally specced `POST /jd/ingest` endpoint was not implemented. JD ingestion is triggered via CLI only (`python -m app.jd_ingestion`).
+
+**Request (`/match`, `/parse-cv`):** `multipart/form-data` with `cv_file` (PDF, DOCX, or TXT), `api_key` (required — user-supplied at runtime, never stored), and `llm_provider` (`openai` or `anthropic`).  
+**Response:** `application/json` — full match payload including profile, retrieval debug info, and ranked results.
 
 **No business logic lives here.** Validation, error handling, and response serialisation only.
 
